@@ -86,7 +86,7 @@ function PhoneFrame({
       ref={phoneRef}
       className="relative mx-auto will-change-transform"
       style={{
-        width: 'min(360px, 28vw)',
+        width: 'min(360px, max(220px, 28vw))',
         maxHeight: '75vh',
         perspective: '1200px',
         transformStyle: 'preserve-3d',
@@ -409,6 +409,9 @@ export default function DemoSection() {
     const phone = phoneRef.current
     if (!el || !phone) return
 
+    // Only pin on large screens where the layout is side-by-side
+    const isLarge = window.matchMedia('(min-width: 1024px)').matches
+
     const timer = setTimeout(() => {
       const ctx = gsap.context(() => {
         const stepTracker = { value: -1 }
@@ -418,8 +421,8 @@ export default function DemoSection() {
           trigger: el,
           start: 'top top',
           end: `+=${window.innerHeight * 1.2}`,
-          pin: true,
-          pinSpacing: true,
+          pin: isLarge,
+          pinSpacing: isLarge,
           scrub: 0.6,
           anticipatePin: 1,
           invalidateOnRefresh: true,
@@ -470,7 +473,7 @@ export default function DemoSection() {
     <section ref={sectionRef} className="relative">
       <div
         ref={pinRef}
-        className="relative h-screen flex items-center px-8 sm:px-12 md:px-16 lg:px-24"
+        className="relative min-h-screen min-h-[100dvh] flex items-center py-20 lg:py-0 px-5 sm:px-12 md:px-16 lg:px-24"
       >
         {/* Background */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -509,10 +512,21 @@ export default function DemoSection() {
           </div>
 
           {/* Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-16 items-center">
-            {/* Left: Steps */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-16 items-center">
+            {/* Phone — shown first on mobile, second on desktop */}
             <motion.div
-              className="flex flex-col"
+              className="flex items-center justify-center order-1 lg:order-2"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+            >
+              <PhoneFrame activeIndex={activeIndex} phoneRef={phoneRef} />
+            </motion.div>
+
+            {/* Steps */}
+            <motion.div
+              className="flex flex-col order-2 lg:order-1"
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -528,17 +542,6 @@ export default function DemoSection() {
                   onClick={() => setStep(i)}
                 />
               ))}
-            </motion.div>
-
-            {/* Right: Phone */}
-            <motion.div
-              className="hidden lg:flex items-center justify-center"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
-              <PhoneFrame activeIndex={activeIndex} phoneRef={phoneRef} />
             </motion.div>
           </div>
         </div>

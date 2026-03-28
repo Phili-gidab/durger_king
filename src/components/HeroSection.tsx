@@ -354,7 +354,7 @@ function DeconstructedBurger() {
 
 export default function HeroSection() {
   return (
-    <section className="relative h-screen flex flex-col overflow-hidden">
+    <section className="relative min-h-screen min-h-[100dvh] flex flex-col overflow-hidden">
       <FloatingParticles />
 
       {/* Grid lines */}
@@ -366,9 +366,9 @@ export default function HeroSection() {
 
       {/* Main grid */}
       <div className="relative z-10 flex-1 w-full max-w-[1400px] mx-auto
-                      px-8 sm:px-12 md:px-16 lg:px-24
+                      px-5 sm:px-12 md:px-16 lg:px-24
                       grid grid-cols-1 lg:grid-cols-[1fr_1fr] items-center
-                      pt-16 pb-24 lg:pt-0 lg:pb-16">
+                      pt-12 pb-20 sm:pt-16 sm:pb-24 lg:pt-0 lg:pb-16">
 
         {/* Left: Text */}
         <div className="flex flex-col order-2 lg:order-1">
@@ -414,7 +414,7 @@ export default function HeroSection() {
           </motion.p>
 
           <motion.div
-            className="flex items-center gap-8 flex-wrap"
+            className="flex items-center gap-4 sm:gap-8 flex-wrap"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.6, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -446,7 +446,7 @@ export default function HeroSection() {
         </div>
 
         {/* Right: Deconstructed Burger */}
-        <div className="relative order-1 lg:order-2 h-[40vh] lg:h-full flex items-center justify-center">
+        <div className="relative order-1 lg:order-2 h-[35vh] sm:h-[40vh] lg:h-full flex items-center justify-center">
           <DeconstructedBurger />
 
           {/* Orbiting ring */}

@@ -21,7 +21,7 @@ export default function FeatureSection() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="relative py-32 px-8 sm:px-12 md:px-16 lg:px-24">
+    <section className="relative py-20 sm:py-32 px-5 sm:px-12 md:px-16 lg:px-24">
       {/* Section header */}
       <div className="max-w-[1400px] mx-auto mb-16">
         <motion.p
@@ -48,7 +48,7 @@ export default function FeatureSection() {
       {/* Bento Grid — 12 columns */}
       <div
         ref={ref}
-        className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 auto-rows-[minmax(320px,auto)]"
+        className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 auto-rows-[minmax(240px,auto)] md:auto-rows-[minmax(320px,auto)]"
       >
         {/* ── Box 1: Ordering Reimagined (Large — spans 7 cols) ── */}
         <motion.div
@@ -59,7 +59,7 @@ export default function FeatureSection() {
           animate={inView ? 'visible' : 'hidden'}
         >
           <TiltCard className="h-full">
-            <div className="flex flex-col h-full p-8 lg:p-10">
+            <div className="flex flex-col h-full p-6 sm:p-8 lg:p-10">
               {/* Label */}
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-8 rounded-lg bg-flame/10 flex items-center justify-center">
@@ -71,7 +71,7 @@ export default function FeatureSection() {
               </div>
 
               <h3 className="text-h3 text-cream mb-2">Ordering Reimagined.</h3>
-              <p className="text-body text-cream-muted max-w-sm mb-8">
+              <p className="text-body text-cream-muted max-w-sm mb-6 sm:mb-8">
                 A full restaurant experience inside Telegram. Browse, customize, and order — all without leaving the chat.
               </p>
 
@@ -108,7 +108,7 @@ export default function FeatureSection() {
           animate={inView ? 'visible' : 'hidden'}
         >
           <TiltCard className="h-full">
-            <div className="flex flex-col h-full p-8 lg:p-10">
+            <div className="flex flex-col h-full p-6 sm:p-8 lg:p-10">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-8 rounded-lg bg-flame/10 flex items-center justify-center">
                   <svg viewBox="0 0 24 24" className="w-4 h-4 text-flame fill-current">
@@ -164,7 +164,7 @@ export default function FeatureSection() {
           animate={inView ? 'visible' : 'hidden'}
         >
           <TiltCard className="h-full">
-            <div className="flex flex-col md:flex-row h-full p-8 lg:p-10 gap-6">
+            <div className="flex flex-col md:flex-row h-full p-6 sm:p-8 lg:p-10 gap-6">
               {/* Text side */}
               <div className="flex flex-col justify-center flex-1">
                 <div className="flex items-center gap-3 mb-3">
@@ -205,7 +205,7 @@ export default function FeatureSection() {
           animate={inView ? 'visible' : 'hidden'}
         >
           <TiltCard className="h-full">
-            <div className="flex flex-col md:flex-row items-center h-full p-8 lg:p-10 gap-8">
+            <div className="flex flex-col md:flex-row items-center h-full p-6 sm:p-8 lg:p-10 gap-6 sm:gap-8">
               {/* Text */}
               <div className="flex flex-col flex-1">
                 <div className="flex items-center gap-3 mb-3">
@@ -223,7 +223,7 @@ export default function FeatureSection() {
               </div>
 
               {/* Animated tracking visualization */}
-              <div className="relative flex-1 flex items-center justify-center min-h-[120px]">
+              <div className="relative flex-1 w-full flex items-center justify-center min-h-[100px] sm:min-h-[120px] pb-6">
                 {/* Track line */}
                 <div className="w-full max-w-md h-[2px] bg-white/[0.06] rounded-full relative">
                   {/* Progress */}

@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden">
       {/* CTA Section */}
-      <div className="relative z-10 max-w-[1400px] mx-auto px-8 sm:px-12 md:px-16 lg:px-24 pt-32 pb-40">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-12 md:px-16 lg:px-24 pt-20 sm:pt-32 pb-28 sm:pb-40">
         {/* Eyebrow */}
         <motion.div
           className="flex items-center gap-4 mb-6"
@@ -106,7 +106,7 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="relative z-10 border-t border-white/[0.04]">
-        <div className="max-w-[1400px] mx-auto px-8 sm:px-12 md:px-16 lg:px-24 py-6 flex items-center justify-between flex-wrap gap-4">
+        <div className="max-w-[1400px] mx-auto px-5 sm:px-12 md:px-16 lg:px-24 py-5 sm:py-6 flex items-center justify-between flex-wrap gap-4">
           <span className="text-[0.65rem] text-cream-muted/40 tracking-wider uppercase">
             &copy; {new Date().getFullYear()} Durger King. All rights reserved.
           </span>

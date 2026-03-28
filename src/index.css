@@ -53,11 +53,12 @@
     background-color: var(--color-obsidian);
     color: var(--color-cream);
     overflow-x: hidden;
-    cursor: none;
   }
 
-  a, button {
-    cursor: none;
+  /* Hide default cursor only on pointer (non-touch) devices */
+  @media (pointer: fine) {
+    body { cursor: none; }
+    a, button { cursor: none; }
   }
 
   ::selection {

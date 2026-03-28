@@ -247,12 +247,12 @@ export default function MenuHighlight() {
   const cursor = CursorImage()
 
   return (
-    <section ref={sectionRef} className="relative py-28 sm:py-36 overflow-hidden">
+    <section ref={sectionRef} className="relative py-20 sm:py-28 md:py-36 overflow-hidden">
       {/* Giant background text */}
       <BackgroundText />
 
       {/* Header */}
-      <div className="relative z-10 max-w-[1400px] mx-auto px-8 sm:px-12 md:px-16 lg:px-24 mb-16">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-12 md:px-16 lg:px-24 mb-10 sm:mb-16">
         <motion.div
           className="flex items-center gap-4 mb-3"
           initial={{ opacity: 0, x: -20 }}
@@ -270,7 +270,9 @@ export default function MenuHighlight() {
           viewport={{ once: true }}
           transition={{ delay: 0.1, duration: 0.6 }}
         >
-          Hover to <span className="text-flame">explore.</span>
+          <span className="hidden sm:inline">Hover to</span>
+          <span className="sm:hidden">Tap to</span>
+          {' '}<span className="text-flame">explore.</span>
         </motion.h2>
       </div>
 
@@ -290,7 +292,7 @@ export default function MenuHighlight() {
           ref={cursor.imgRef}
           src=""
           alt=""
-          className="w-44 h-44 object-contain"
+          className="w-28 h-28 sm:w-44 sm:h-44 object-contain"
           style={{
             filter:
               'drop-shadow(0 25px 50px rgba(0,0,0,0.5)) drop-shadow(0 0 40px rgba(255,77,0,0.2))',
