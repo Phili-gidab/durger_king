@@ -1,0 +1,290 @@
+@import "tailwindcss";
+
+/* ─── Design System: Durger King ─── */
+
+@theme {
+  /* Color Palette */
+  --color-obsidian: #0A0A0A;
+  --color-obsidian-light: #141414;
+  --color-obsidian-lighter: #1E1E1E;
+  --color-flame: #FF4D00;
+  --color-flame-dark: #CC3D00;
+  --color-flame-glow: rgba(255, 77, 0, 0.15);
+  --color-cream: #F5F5F7;
+  --color-cream-dark: #E8E8EA;
+  --color-cream-muted: rgba(245, 245, 247, 0.6);
+
+  /* Fluid Typography Scale */
+  --font-size-display: clamp(4rem, 8vw + 1rem, 10rem);
+  --font-size-h1: clamp(2.5rem, 5vw + 1rem, 6rem);
+  --font-size-h2: clamp(1.75rem, 3vw + 0.5rem, 3.5rem);
+  --font-size-h3: clamp(1.25rem, 2vw + 0.25rem, 2rem);
+  --font-size-body: clamp(1rem, 1vw + 0.5rem, 1.25rem);
+  --font-size-caption: clamp(0.75rem, 0.8vw + 0.25rem, 0.875rem);
+
+  /* Spacing */
+  --spacing-section: clamp(4rem, 10vw, 10rem);
+
+  /* Animation */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ─── Base Styles (lower priority than Tailwind utilities) ─── */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background-color: var(--color-obsidian);
+    color: var(--color-cream);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  a, button {
+    cursor: none;
+  }
+
+  ::selection {
+    background-color: var(--color-flame);
+    color: var(--color-cream);
+  }
+}
+
+/* ─── Noise Overlay ─── */
+
+/* Grain overlay — two layers for richer texture */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 512px 512px;
+}
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ─── Magnetic Cursor ─── */
+
+.magnetic-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-cream);
+  pointer-events: none;
+  z-index: 10000;
+  transition: width 0.4s var(--ease-out-expo),
+              height 0.4s var(--ease-out-expo),
+              background-color 0.3s ease,
+              border-color 0.3s ease,
+              opacity 0.3s ease;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+
+.magnetic-cursor.expanded {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(245, 245, 247, 0.08);
+  border-color: var(--color-flame);
+}
+
+.magnetic-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-flame);
+  pointer-events: none;
+  z-index: 10001;
+  transform: translate(-50%, -50%);
+}
+
+/* ─── Border Beam ─── */
+
+@keyframes border-beam {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+.border-beam {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* The beam itself — a small glowing dot that traces the border path */
+.border-beam::before {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 77, 0, 0.7) 0%,
+    rgba(255, 77, 0, 0.3) 30%,
+    transparent 65%
+  );
+  border-radius: 50%;
+  offset-path: inset(0 round 1rem);
+  animation: border-beam 6s linear infinite;
+  filter: blur(4px);
+}
+
+/* Variant for buttons (smaller beam, faster) */
+.border-beam-sm::before {
+  width: 50px;
+  height: 50px;
+  offset-path: inset(0 round 9999px);
+  animation: border-beam 3s linear infinite;
+  background: radial-gradient(
+    circle,
+    rgba(255, 77, 0, 0.8) 0%,
+    rgba(255, 77, 0, 0.3) 35%,
+    transparent 60%
+  );
+  filter: blur(3px);
+}
+
+/* ─── Tilt Card Spotlight ─── */
+
+.tilt-card {
+  --spot-x: 50%;
+  --spot-y: 50%;
+}
+
+.spotlight-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  background: radial-gradient(
+    500px circle at var(--spot-x) var(--spot-y),
+    rgba(255, 77, 0, 0.07),
+    transparent 50%
+  );
+}
+
+.spotlight-border {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  background: radial-gradient(
+    400px circle at var(--spot-x) var(--spot-y),
+    rgba(255, 77, 0, 0.3),
+    transparent 50%
+  );
+  /* Mask to only show as a 1px border */
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1px;
+}
+
+.tilt-card:hover .spotlight-glow,
+.tilt-card:hover .spotlight-border {
+  opacity: 1;
+}
+
+/* ─── Fluid Headings ─── */
+
+@layer components {
+  .text-display {
+    font-size: var(--font-size-display);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+  }
+
+  .text-h1 {
+    font-size: var(--font-size-h1);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .text-h2 {
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .text-h3 {
+    font-size: var(--font-size-h3);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .text-body {
+    font-size: var(--font-size-body);
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  .text-caption {
+    font-size: var(--font-size-caption);
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+}
