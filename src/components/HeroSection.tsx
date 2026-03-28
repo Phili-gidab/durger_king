@@ -153,8 +153,6 @@ function DeconstructedBurger() {
   // GSAP entrance + scroll deconstruction
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const layers = [topRef.current, midRef.current, botRef.current]
-
       // Entrance: each layer slides in from different offsets
       gsap.fromTo(
         topRef.current,

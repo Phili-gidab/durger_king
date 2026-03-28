@@ -57,7 +57,7 @@ const screenVariants = {
     scale: 1,
     opacity: 1,
     transition: {
-      y: { duration: 0.5, ease: [0.32, 0.72, 0, 1] },
+      y: { duration: 0.5, ease: [0.32, 0.72, 0, 1] as [number, number, number, number] },
       opacity: { duration: 0.3 },
     },
   },
@@ -66,7 +66,7 @@ const screenVariants = {
     scale: 0.85,
     opacity: 0,
     transition: {
-      scale: { duration: 0.4, ease: [0.32, 0.72, 0, 1] },
+      scale: { duration: 0.4, ease: [0.32, 0.72, 0, 1] as [number, number, number, number] },
       opacity: { duration: 0.3 },
     },
   },
